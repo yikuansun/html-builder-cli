@@ -16,7 +16,7 @@ clearTemp();
 
 if (!fs.existsSync(dirnameReal + "/manifest.json")) throw "Could not find manifest.json.";
 var manifestData = JSON.parse(fs.readFileSync(dirnameReal + "/manifest.json", "utf-8"));
-console.log("App Metadata Recieved:");
+console.log("App Metadata Received:");
 for (var key in manifestData) {
     console.log("-", key, ":", manifestData[key]);
 }
