@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const admZip = require("adm-zip");
 const fs = require("fs");
 const { exec } = require("child_process");
