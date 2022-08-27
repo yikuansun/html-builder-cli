@@ -110,6 +110,12 @@ exec(`cd '${dirnameReal + "/html-builder-cli-temp"}' && npm install && npx elect
     console.log("stdout from Electron:");
     for (var line of stdout.split("\n")) console.log(" > " + line);
 
+    console.log("\nMoving files...\n");
+    fs.renameSync(dirnameReal + "/html-builder-cli-temp/dist", dirnameReal + "/html-builder_output");
+    console.log("Deleting temp folder...\n");
+    fs.rmSync(dirnameReal + "/html-builder-cli-temp", { recursive: true });
+    console.log("Native apps successfully created!\nLocation: ./html-builder_output\n");
+
     console.log();
     console.log("Thank you for using HTML Builder!");
     console.log("Submit feedback: https://github.com/yikuansun/html-builder-cli/issues");
