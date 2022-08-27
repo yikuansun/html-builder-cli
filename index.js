@@ -111,7 +111,9 @@ exec(`cd '${dirnameReal + "/html-builder-cli-temp"}' && npm install && npx elect
     for (var line of stdout.split("\n")) console.log(" > " + line);
 
     console.log("\nMoving files...\n");
-    fs.renameSync(dirnameReal + "/html-builder-cli-temp/dist", dirnameReal + "/html-builder_output");
+    var zip2 = new admZip();
+    zip2.addLocalFolder(dirnameReal + "/html-builder-cli-temp/dist");
+    zip2.extractAllTo(dirnameReal + "/html-builder_output");
     console.log("Deleting temp folder...\n");
     fs.rmSync(dirnameReal + "/html-builder-cli-temp", { recursive: true });
     console.log("Native apps successfully created!\nLocation: ./html-builder_output\n");
