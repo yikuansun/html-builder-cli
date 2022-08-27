@@ -5,6 +5,15 @@ const { exec } = require("child_process");
 
 var dirnameReal = process.cwd();
 
+function clearTemp() {
+    if (fs.existsSync(dirnameReal + "/html-builder-cli-temp")) {
+        fs.rmSync(dirnameReal + "/html-builder-cli-temp", {
+            recursive: true
+        });
+    }
+}
+clearTemp();
+
 var manifestData = JSON.parse(fs.readFileSync(dirnameReal + "/manifest.json", "utf-8"));
 
 var zip = new admZip();
