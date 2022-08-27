@@ -72,7 +72,7 @@ fs.writeFileSync(dirnameReal + "/html-builder-cli-temp/main.js", `
         });
 
         mainWindow.setMenuBarVisibility(false);
-        mainWindow.loadFile("html/index.html");
+        mainWindow.loadFile("html/${manifestData.indexFile || "index.html"}");
         mainWindow.maximize();
         nativeTheme.themeSource = "${manifestData.colorScheme || "system"}";
 
