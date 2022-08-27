@@ -14,7 +14,13 @@ function clearTemp() {
 }
 clearTemp();
 
+if (!fs.existsSync(dirnameReal + "/manifest.json")) throw "Could not find manifest.json.";
 var manifestData = JSON.parse(fs.readFileSync(dirnameReal + "/manifest.json", "utf-8"));
+console.log("App Metadata Recieved:");
+for (var key in manifestData) {
+    console.log("-", key, ":", manifestData[key]);
+}
+console.log("If this data is incorrect, edit manifest.json.\n");
 
 var zip = new admZip();
 zip.addLocalFolder(dirnameReal);
@@ -79,6 +85,8 @@ fs.writeFileSync(dirnameReal + "/html-builder-cli-temp/main.js", `
     app.on("window-all-closed", function () { app.quit(); });
 `);
 
+console.log("Created configuration files.\n");
+
 fs.mkdirSync(dirnameReal + "/html-builder-cli-temp/buildresources");
 if (manifestData.icon) {
     fs.copyFileSync(dirnameReal + "/" + manifestData.icon, dirnameReal + "/html-builder-cli-temp/buildresources/icon.png");
@@ -86,6 +94,11 @@ if (manifestData.icon) {
 else if (fs.existsSync(dirnameReal + "/icon.png")) {
     fs.copyFileSync(dirnameReal + "/icon.png", dirnameReal + "/html-builder-cli-temp/buildresources/icon.png");
 }
+else {
+    console.log("No icon file found!\n");
+}
+
+console.log("Building...\n");
 
 var platformArgs = "";
 for (var platform of manifestData.platforms) {
@@ -96,4 +109,8 @@ exec(`cd '${dirnameReal + "/html-builder-cli-temp"}' && npm install && npx elect
     
     console.log("stdout from Electron:");
     for (var line of stdout.split("\n")) console.log(" > " + line);
+
+    console.log();
+    console.log("Thank you for using HTML Builder!");
+    console.log("Submit feedback: https://github.com/yikuansun/html-builder-cli/issues");
 });
