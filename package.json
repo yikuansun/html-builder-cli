@@ -21,7 +21,10 @@
         "App",
         "Native"
     ],
-    "author": "Yikuan Sun",
+    "author": {
+        "name": "Yikuan Sun",
+        "url": "https://yikuansun.github.io"
+    },
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/yikuansun/html-builder-cli/issues"
