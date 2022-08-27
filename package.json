@@ -1,0 +1,30 @@
+{
+  "name": "html-builder-cli",
+  "version": "1.0.0",
+  "description": "Compile HTML projects into native desktop applications!",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yikuansun/html-builder-cli.git"
+  },
+  "keywords": [
+    "HTML",
+    "CSS",
+    "JS",
+    "Compile",
+    "Web",
+    "Development",
+    "Desktop",
+    "App",
+    "Native"
+  ],
+  "author": "Yikuan Sun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yikuansun/html-builder-cli/issues"
+  },
+  "homepage": "https://github.com/yikuansun/html-builder-cli#readme"
+}
