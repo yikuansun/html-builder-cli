@@ -37,8 +37,8 @@ fs.writeFileSync(dirnameReal + "/html-builder-cli-temp/package.json", JSON.strin
     scripts: {
         start: "electron .",
         "build-linux": "electron-builder --linux",
-        "build-darwin": "electron-builder --mac",
-        "build-win32": "electron-builder --windows"
+        "build-mac": "electron-builder --mac",
+        "build-windows": "electron-builder --windows"
     },
     devDependencies: {
         electron: "^17.1.0",
@@ -89,3 +89,14 @@ if (manifestData.icon) {
 else if (fs.existsSync(dirnameReal + "/icon.png")) {
     fs.copyFileSync(dirnameReal + "/icon.png", dirnameReal + "/html-builder-cli-temp/buildresources/icon.png");
 }
+
+var platformArgs = "";
+for (var platform of manifestData.platforms) {
+    platformArgs += " --" + platform;
+}
+exec(`cd '${dirnameReal + "/html-builder-cli-temp"}' && npm install && npx electron-builder ${platformArgs}`, function(error, stdout, stderr) {
+    if (error) console.log(error.message);
+    
+    console.log("stdout from Electron:");
+    for (var line of stdout.split("\n")) console.log(" > " + line);
+});
