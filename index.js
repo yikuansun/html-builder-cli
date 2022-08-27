@@ -35,10 +35,7 @@ fs.writeFileSync(dirnameReal + "/html-builder-cli-temp/package.json", JSON.strin
     version: manifestData.version || "1.0.0",
     main: "main.js",
     scripts: {
-        start: "electron .",
-        "build-linux": "electron-builder --linux",
-        "build-mac": "electron-builder --mac",
-        "build-windows": "electron-builder --windows"
+        start: "electron ."
     },
     devDependencies: {
         electron: "^17.1.0",
@@ -50,7 +47,7 @@ fs.writeFileSync(dirnameReal + "/html-builder-cli-temp/package.json", JSON.strin
             buildResources: "buildresources"
         },
         mac: {
-            "target": "zip"
+            target: "zip"
         }
     }
 }));
