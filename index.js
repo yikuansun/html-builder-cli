@@ -5,6 +5,8 @@ const { exec } = require("child_process");
 
 var dirnameReal = process.cwd();
 
+var manifestData = JSON.parse(fs.readFileSync(dirnameReal + "/manifest.json", "utf-8"));
+
 var zip = new admZip();
 zip.addLocalFolder(dirnameReal);
 
@@ -15,13 +17,13 @@ zip.extractAllTo(dirnameReal + "/html-builder-cli-temp/html");
 
 fs.writeFileSync(dirnameReal + "/html-builder-cli-temp/package.json", JSON.stringify({
     name: "my-html-app" + Math.random().toString().substring(2, 6),
-    productName: "{app_name}",
-    description: "An app created with HTML Builder",
+    productName: manifestData.name,
+    description: manifestData.desc || "An app created with HTML Builder",
     author: {
         name: "HTML Builder (CLI)",
         url: "https://github.com/yikuansun/html-builder-cli"
     },
-    version: "1.0.0",
+    version: manifestData.version || "1.0.0",
     main: "main.js",
     scripts: {
         start: "electron .",
