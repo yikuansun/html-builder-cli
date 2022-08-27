@@ -47,7 +47,7 @@ fs.writeFileSync(dirnameReal + "/html-builder-cli-temp/package.json", JSON.strin
     build: {
         appId: "com.electron.htmlapp" + Math.random().toString().substring(2, 6),
         directories: {
-            buildResources: "htmlbuilder-buildresources"
+            buildResources: "buildresources"
         },
         mac: {
             "target": "zip"
@@ -81,3 +81,11 @@ fs.writeFileSync(dirnameReal + "/html-builder-cli-temp/main.js", `
 
     app.on("window-all-closed", function () { app.quit(); });
 `);
+
+fs.mkdirSync(dirnameReal + "/html-builder-cli-temp/buildresources");
+if (manifestData.icon) {
+    fs.copyFileSync(dirnameReal + "/" + manifestData.icon, dirnameReal + "/html-builder-cli-temp/buildresources/icon.png");
+}
+else if (fs.existsSync(dirnameReal + "/icon.png")) {
+    fs.copyFileSync(dirnameReal + "/icon.png", dirnameReal + "/html-builder-cli-temp/buildresources/icon.png");
+}
