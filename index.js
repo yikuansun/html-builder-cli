@@ -105,7 +105,7 @@ for (var platform of manifestData.platforms) {
     platformArgs += " --" + platform;
 }
 exec(`cd '${dirnameReal + "/html-builder-cli-temp"}' && npm install && npx electron-builder ${platformArgs}`, function(error, stdout, stderr) {
-    if (error) console.log(error.message);
+    if (error) throw (error.message);
     
     console.log("stdout from Electron:");
     for (var line of stdout.split("\n")) console.log(" > " + line);
