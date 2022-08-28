@@ -1,5 +1,3 @@
-# html-builder-cli
-The fastest way to compile an HTML app into a native desktop application.
 ## Installation
 Requires [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 ### Install from npm
