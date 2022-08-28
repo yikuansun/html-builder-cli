@@ -111,17 +111,17 @@ var stdout = execSync(
     }
 );
     
-    console.log("stdout from Electron:");
-    for (var line of stdout.split("\n")) console.log(" > " + line);
+console.log("stdout from Electron:");
+for (var line of stdout.split("\n")) console.log(" > " + line);
 
-    console.log("\nMoving files...\n");
-    var zip2 = new admZip();
-    zip2.addLocalFolder(dirnameReal + "/.html-builder-cli-temp/dist");
-    zip2.extractAllTo(dirnameReal + "/html-builder_output");
-    console.log("Deleting temp folder...\n");
-    fs.rmSync(dirnameReal + "/.html-builder-cli-temp", { recursive: true });
-    console.log("Native apps successfully created!\nLocation: ./html-builder_output\n");
+console.log("\nMoving files...\n");
+var zip2 = new admZip();
+zip2.addLocalFolder(dirnameReal + "/.html-builder-cli-temp/dist");
+zip2.extractAllTo(dirnameReal + "/html-builder_output");
+console.log("Deleting temp folder...\n");
+fs.rmSync(dirnameReal + "/.html-builder-cli-temp", { recursive: true });
+console.log("Native apps successfully created!\nLocation: ./html-builder_output\n");
 
-    console.log();
-    console.log("Thank you for using HTML Builder!");
-    console.log("Submit feedback: https://github.com/yikuansun/html-builder-cli/issues");
+console.log();
+console.log("Thank you for using HTML Builder!");
+console.log("Submit feedback: https://github.com/yikuansun/html-builder-cli/issues");
