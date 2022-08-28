@@ -19,7 +19,9 @@
         "Development",
         "Desktop",
         "App",
-        "Native"
+        "Native",
+        "Packager",
+        "Electron"
     ],
     "author": {
         "name": "Yikuan Sun",
