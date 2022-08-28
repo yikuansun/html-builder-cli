@@ -13,7 +13,7 @@ In your HTML project's directory, create a file called `manifest.json`. `manifes
 - `platforms` (required): an array of operating systems to build for. Each element of the array must be a string that is either `linux`, `mac`, or `windows`;
 - `desc` (optional): a short description of the application.
 - `version` (optional): the application's version. Must be a string in the format [`x.x.x`](https://www.akeeba.com/how-do-version-numbers-work.html). Defaults to `1.0.0`.
-- `icon` (optional): the relative location of the icon file (preferably a PNG of size >= 512x512px). Defaults to `icon.png`.
+- `icon` (optional): the relative location of the icon file (preferably a PNG of size >= 512x512px). Defaults to `icon.png`. AN ICON FILE MUST BE PROVIDED.
 - `indexFile` (optional): the relative location of the main HTML file to be displayed by the app. Defaults to `index.html`.
 - `colorScheme` (optional): `dark`, `light`, or `system`. Defaults to `system`.
 
