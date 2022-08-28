@@ -6,8 +6,8 @@ const { exec } = require("child_process");
 var dirnameReal = process.cwd();
 
 function clearTemp() {
-    if (fs.existsSync(dirnameReal + "/html-builder-cli-temp")) {
-        fs.rmSync(dirnameReal + "/html-builder-cli-temp", {
+    if (fs.existsSync(dirnameReal + "/.html-builder-cli-temp")) {
+        fs.rmSync(dirnameReal + "/.html-builder-cli-temp", {
             recursive: true
         });
     }
@@ -25,12 +25,12 @@ console.log("If this data is incorrect, edit manifest.json.\n");
 var zip = new admZip();
 zip.addLocalFolder(dirnameReal);
 
-fs.mkdirSync(dirnameReal + "/html-builder-cli-temp");
-fs.mkdirSync(dirnameReal + "/html-builder-cli-temp/html");
+fs.mkdirSync(dirnameReal + "/.html-builder-cli-temp");
+fs.mkdirSync(dirnameReal + "/.html-builder-cli-temp/html");
 
-zip.extractAllTo(dirnameReal + "/html-builder-cli-temp/html");
+zip.extractAllTo(dirnameReal + "/.html-builder-cli-temp/html");
 
-fs.writeFileSync(dirnameReal + "/html-builder-cli-temp/package.json", JSON.stringify({
+fs.writeFileSync(dirnameReal + "/.html-builder-cli-temp/package.json", JSON.stringify({
     name: "my-html-app" + Math.random().toString().substring(2, 6),
     productName: manifestData.name,
     description: manifestData.desc || "An app created with HTML Builder",
@@ -58,7 +58,7 @@ fs.writeFileSync(dirnameReal + "/html-builder-cli-temp/package.json", JSON.strin
     }
 }));
 
-fs.writeFileSync(dirnameReal + "/html-builder-cli-temp/main.js", `
+fs.writeFileSync(dirnameReal + "/.html-builder-cli-temp/main.js", `
     const { app, BrowserWindow, nativeTheme } = require("electron");
 
     function createWindow () {
@@ -87,12 +87,12 @@ fs.writeFileSync(dirnameReal + "/html-builder-cli-temp/main.js", `
 
 console.log("Created configuration files.\n");
 
-fs.mkdirSync(dirnameReal + "/html-builder-cli-temp/buildresources");
+fs.mkdirSync(dirnameReal + "/.html-builder-cli-temp/buildresources");
 if (manifestData.icon) {
-    fs.copyFileSync(dirnameReal + "/" + manifestData.icon, dirnameReal + "/html-builder-cli-temp/buildresources/icon.png");
+    fs.copyFileSync(dirnameReal + "/" + manifestData.icon, dirnameReal + "/.html-builder-cli-temp/buildresources/icon.png");
 }
 else if (fs.existsSync(dirnameReal + "/icon.png")) {
-    fs.copyFileSync(dirnameReal + "/icon.png", dirnameReal + "/html-builder-cli-temp/buildresources/icon.png");
+    fs.copyFileSync(dirnameReal + "/icon.png", dirnameReal + "/.html-builder-cli-temp/buildresources/icon.png");
 }
 else {
     console.log("No icon file found!\n");
@@ -104,7 +104,7 @@ var platformArgs = "";
 for (var platform of manifestData.platforms) {
     platformArgs += " --" + platform;
 }
-exec(`cd '${dirnameReal + "/html-builder-cli-temp"}' && npm install && npx electron-builder ${platformArgs}`, function(error, stdout, stderr) {
+exec(`cd '${dirnameReal + "/.html-builder-cli-temp"}' && npm install && npx electron-builder ${platformArgs}`, function(error, stdout, stderr) {
     if (error) throw (error.message);
     
     console.log("stdout from Electron:");
@@ -112,10 +112,10 @@ exec(`cd '${dirnameReal + "/html-builder-cli-temp"}' && npm install && npx elect
 
     console.log("\nMoving files...\n");
     var zip2 = new admZip();
-    zip2.addLocalFolder(dirnameReal + "/html-builder-cli-temp/dist");
+    zip2.addLocalFolder(dirnameReal + "/.html-builder-cli-temp/dist");
     zip2.extractAllTo(dirnameReal + "/html-builder_output");
     console.log("Deleting temp folder...\n");
-    fs.rmSync(dirnameReal + "/html-builder-cli-temp", { recursive: true });
+    fs.rmSync(dirnameReal + "/.html-builder-cli-temp", { recursive: true });
     console.log("Native apps successfully created!\nLocation: ./html-builder_output\n");
 
     console.log();
