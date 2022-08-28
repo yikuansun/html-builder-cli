@@ -3,7 +3,7 @@ The fastest way to package an HTML project into a fully native desktop app
 ## Installation
 Requires [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 ### Install from npm
-*Unfinished*
+In the command line, run `npm install html-builder-cli -g`
 ### Build from source
 1. Clone this repository
 2. Run `npm install -g`
