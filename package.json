@@ -1,7 +1,7 @@
 {
     "name": "html-builder-cli",
     "version": "2.0.0",
-    "description": "Compile HTML projects into native desktop applications!",
+    "description": "The fastest way to package an HTML project into a fully native desktop app",
     "main": "index.js",
     "scripts": {
         "test": "node index.js"
