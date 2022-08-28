@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const admZip = require("adm-zip");
 const fs = require("fs");
-const { exec } = require("child_process");
+const { exec, execSync } = require("child_process");
 
 var dirnameReal = process.cwd();
 
@@ -104,8 +104,12 @@ var platformArgs = "";
 for (var platform of manifestData.platforms) {
     platformArgs += " --" + platform;
 }
-exec(`cd '${dirnameReal + "/.html-builder-cli-temp"}' && npm install && npx electron-builder ${platformArgs}`, function(error, stdout, stderr) {
-    if (error) throw (error.message);
+var stdout = execSync(
+    `cd '${dirnameReal + "/.html-builder-cli-temp"}' && npm install && npx electron-builder ${platformArgs}`,
+    {
+        encoding: "utf-8"
+    }
+);
     
     console.log("stdout from Electron:");
     for (var line of stdout.split("\n")) console.log(" > " + line);
@@ -121,4 +125,3 @@ exec(`cd '${dirnameReal + "/.html-builder-cli-temp"}' && npm install && npx elec
     console.log();
     console.log("Thank you for using HTML Builder!");
     console.log("Submit feedback: https://github.com/yikuansun/html-builder-cli/issues");
-});
