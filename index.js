@@ -120,7 +120,8 @@ zip2.addLocalFolder(dirnameReal + "/.html-builder-cli-temp/dist");
 zip2.extractAllTo(dirnameReal + "/html-builder_output");
 console.log("Deleting temp folder...\n");
 fs.rmSync(dirnameReal + "/.html-builder-cli-temp", { recursive: true });
-console.log("Native apps successfully created!\nLocation: ./html-builder_output\n");
+console.log(`Native apps successfully created!
+Location: ${dirnameReal}/html-builder_output`);
 
 console.log();
 console.log("Thank you for using HTML Builder!");
