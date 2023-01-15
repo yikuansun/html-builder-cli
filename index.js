@@ -2,6 +2,7 @@
 const admZip = require("adm-zip");
 const fs = require("fs");
 const { exec, execSync } = require("child_process");
+const png2icons = require("png2icons");
 
 var dirnameReal = process.cwd();
 
@@ -13,6 +14,20 @@ function clearTemp() {
     }
 }
 clearTemp();
+
+function addIcons(iconPath) {
+    var img = fs.readFileSync(iconPath);
+    png2icons.setLogger(console.log);
+    var icns = png2icons.createICNS(img, png2icons.BILINEAR, 0);
+    if (icns) {
+        fs.writeFileSync(dirnameReal + "/.html-builder-cli-temp/buildresources/icon.icns", icns);
+        //fs.mkdirSync(dirnameReal + "/.html-builder-cli-temp/buildresources/icons");
+        //fs.copyFileSync(dirnameReal + "/.html-builder-cli-temp/buildresources/icon.icns", dirnameReal + "/.html-builder-cli-temp/buildresources/icons/512x512.icns");
+    }
+    var ico = png2icons.createICO(img, png2icons.BILINEAR, 0);
+    if (ico) fs.writeFileSync(dirnameReal + "/.html-builder-cli-temp/buildresources/icon.ico", ico);
+    console.log();
+}
 
 if (!fs.existsSync(dirnameReal + "/manifest.json")) throw "Could not find manifest.json.";
 var manifestData = JSON.parse(fs.readFileSync(dirnameReal + "/manifest.json", "utf-8"));
@@ -89,10 +104,10 @@ console.log("Created configuration files.\n");
 
 fs.mkdirSync(dirnameReal + "/.html-builder-cli-temp/buildresources");
 if (manifestData.icon) {
-    fs.copyFileSync(dirnameReal + "/" + manifestData.icon, dirnameReal + "/.html-builder-cli-temp/buildresources/icon.png");
+    addIcons(dirnameReal + "/" + manifestData.icon);
 }
 else if (fs.existsSync(dirnameReal + "/icon.png")) {
-    fs.copyFileSync(dirnameReal + "/icon.png", dirnameReal + "/.html-builder-cli-temp/buildresources/icon.png");
+    addIcons(dirnameReal + "/icon.png");
 }
 else {
     console.log("No icon file found!\n");
