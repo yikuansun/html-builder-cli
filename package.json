@@ -2,9 +2,9 @@
     "name": "html-builder-cli",
     "version": "2.1.0",
     "description": "The fastest way to package an HTML project into a fully native desktop app",
-    "main": "index.js",
+    "main": "buildApp.js",
     "scripts": {
-        "test": "node index.js"
+        "test": "node cli.js"
     },
     "repository": {
         "type": "git",
@@ -36,5 +36,5 @@
         "adm-zip": "^0.5.3",
         "png2icons": "^2.0.1"
     },
-    "bin": "./index.js"
+    "bin": "./cli.js"
 }
