@@ -3,36 +3,34 @@ const fs = require("fs");
 const { exec, execSync } = require("child_process");
 const png2icons = require("png2icons");
 
-var dirnameReal = process.cwd();
-
-function clearTemp() {
-    if (fs.existsSync(dirnameReal + "/.html-builder-cli-temp")) {
-        fs.rmSync(dirnameReal + "/.html-builder-cli-temp", {
+function clearTemp(appPath) {
+    if (fs.existsSync(appPath + "/.html-builder-cli-temp")) {
+        fs.rmSync(appPath + "/.html-builder-cli-temp", {
             recursive: true
         });
     }
 }
 
-function addIcons(iconPath) {
+function addIcons(appPath, iconPath) {
     var img = fs.readFileSync(iconPath);
     png2icons.setLogger(console.log);
     var icns = png2icons.createICNS(img, png2icons.BILINEAR, 0);
     if (icns) {
-        fs.writeFileSync(dirnameReal + "/.html-builder-cli-temp/buildresources/icon.icns", icns);
-        //fs.mkdirSync(dirnameReal + "/.html-builder-cli-temp/buildresources/icons");
-        //fs.copyFileSync(dirnameReal + "/.html-builder-cli-temp/buildresources/icon.icns", dirnameReal + "/.html-builder-cli-temp/buildresources/icons/512x512.icns");
+        fs.writeFileSync(appPath + "/.html-builder-cli-temp/buildresources/icon.icns", icns);
+        //fs.mkdirSync(appPath + "/.html-builder-cli-temp/buildresources/icons");
+        //fs.copyFileSync(appPath + "/.html-builder-cli-temp/buildresources/icon.icns", appPath + "/.html-builder-cli-temp/buildresources/icons/512x512.icns");
     }
     var ico = png2icons.createICO(img, png2icons.BILINEAR, 0);
-    if (ico) fs.writeFileSync(dirnameReal + "/.html-builder-cli-temp/buildresources/icon.ico", ico);
+    if (ico) fs.writeFileSync(appPath + "/.html-builder-cli-temp/buildresources/icon.ico", ico);
     console.log();
 }
 
-function buildApp() {
+function buildApp(appPath, manifestData) {
 
-    clearTemp();
+    clearTemp(appPath);
 
-    if (!fs.existsSync(dirnameReal + "/manifest.json")) throw "Could not find manifest.json.";
-    var manifestData = JSON.parse(fs.readFileSync(dirnameReal + "/manifest.json", "utf-8"));
+    if (!fs.existsSync(appPath + "/manifest.json")) throw "Could not find manifest.json.";
+    var manifestData = JSON.parse(fs.readFileSync(appPath + "/manifest.json", "utf-8"));
     console.log("App Metadata Received:");
     for (var key in manifestData) {
         console.log("-", key, ":", manifestData[key]);
@@ -40,14 +38,14 @@ function buildApp() {
     console.log("If this data is incorrect, edit manifest.json.\n");
     
     var zip = new admZip();
-    zip.addLocalFolder(dirnameReal);
+    zip.addLocalFolder(appPath);
     
-    fs.mkdirSync(dirnameReal + "/.html-builder-cli-temp");
-    fs.mkdirSync(dirnameReal + "/.html-builder-cli-temp/html");
+    fs.mkdirSync(appPath + "/.html-builder-cli-temp");
+    fs.mkdirSync(appPath + "/.html-builder-cli-temp/html");
     
-    zip.extractAllTo(dirnameReal + "/.html-builder-cli-temp/html");
+    zip.extractAllTo(appPath + "/.html-builder-cli-temp/html");
     
-    fs.writeFileSync(dirnameReal + "/.html-builder-cli-temp/package.json", JSON.stringify({
+    fs.writeFileSync(appPath + "/.html-builder-cli-temp/package.json", JSON.stringify({
         name: "my-html-app" + Math.random().toString().substring(2, 6),
         productName: manifestData.name,
         description: manifestData.desc || "An app created with HTML Builder",
@@ -75,7 +73,7 @@ function buildApp() {
         }
     }));
     
-    fs.writeFileSync(dirnameReal + "/.html-builder-cli-temp/main.js", `
+    fs.writeFileSync(appPath + "/.html-builder-cli-temp/main.js", `
         const { app, BrowserWindow, nativeTheme } = require("electron");
     
         function createWindow () {
@@ -104,12 +102,12 @@ function buildApp() {
     
     console.log("Created configuration files.\n");
     
-    fs.mkdirSync(dirnameReal + "/.html-builder-cli-temp/buildresources");
+    fs.mkdirSync(appPath + "/.html-builder-cli-temp/buildresources");
     if (manifestData.icon) {
-        addIcons(dirnameReal + "/" + manifestData.icon);
+        addIcons(appPath, appPath + "/" + manifestData.icon);
     }
-    else if (fs.existsSync(dirnameReal + "/icon.png")) {
-        addIcons(dirnameReal + "/icon.png");
+    else if (fs.existsSync(appPath + "/icon.png")) {
+        addIcons(appPath, appPath + "/icon.png");
     }
     else {
         console.log("No icon file found!\n");
@@ -122,7 +120,7 @@ function buildApp() {
         platformArgs += " --" + platform;
     }
     var stdout = execSync(
-        `cd '${dirnameReal + "/.html-builder-cli-temp"}' && npm install && npx electron-builder ${platformArgs}`,
+        `cd '${appPath + "/.html-builder-cli-temp"}' && npm install && npx electron-builder ${platformArgs}`,
         {
             encoding: "utf-8"
         }
@@ -133,12 +131,12 @@ function buildApp() {
     
     console.log("\nMoving files...\n");
     var zip2 = new admZip();
-    zip2.addLocalFolder(dirnameReal + "/.html-builder-cli-temp/dist");
-    zip2.extractAllTo(dirnameReal + "/html-builder_output");
+    zip2.addLocalFolder(appPath + "/.html-builder-cli-temp/dist");
+    zip2.extractAllTo(appPath + "/html-builder_output");
     console.log("Deleting temp folder...\n");
-    fs.rmSync(dirnameReal + "/.html-builder-cli-temp", { recursive: true });
+    clearTemp(appPath);
     console.log(`Native apps successfully created!
-    Location: ${dirnameReal}/html-builder_output`);
+    Location: ${appPath}/html-builder_output`);
     
     console.log();
     console.log("Thank you for using HTML Builder!");
