@@ -1,6 +1,6 @@
 {
     "name": "html-builder-cli",
-    "version": "2.1.0",
+    "version": "3.0.0",
     "description": "The fastest way to package an HTML project into a fully native desktop app",
     "main": "buildApp.js",
     "scripts": {
