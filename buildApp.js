@@ -25,7 +25,7 @@ function addIcons(appPath, iconPath) {
     console.log();
 }
 
-function buildApp(appPath=process.cwd(), options={ version: "1.0.0", icon: "icon.png", indexFile: "index.html", colorScheme: "system" }) {
+function buildApp(appPath=process.cwd(), options={ version: "1.0.0", icon: process.cwd() + "/icon.png", indexFile: "index.html", colorScheme: "system" }) {
 
     clearTemp(appPath);
 
@@ -103,7 +103,7 @@ function buildApp(appPath=process.cwd(), options={ version: "1.0.0", icon: "icon
     
     fs.mkdirSync(appPath + "/.html-builder-cli-temp/buildresources");
     if (manifestData.icon) {
-        addIcons(appPath, appPath + "/" + manifestData.icon);
+        addIcons(appPath, manifestData.icon);
     }
     else if (fs.existsSync(appPath + "/icon.png")) {
         addIcons(appPath, appPath + "/icon.png");
