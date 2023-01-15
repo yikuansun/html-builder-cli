@@ -68,6 +68,9 @@ function buildApp(appPath=process.cwd(), options={ version: "1.0.0", icon: proce
             },
             mac: {
                 target: "zip"
+            },
+            nsis: {
+                differentialPackage: false
             }
         }
     }));
