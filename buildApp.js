@@ -25,12 +25,11 @@ function addIcons(appPath, iconPath) {
     console.log();
 }
 
-function buildApp(appPath, manifestData) {
+function buildApp(appPath=process.cwd(), options={ version: "1.0.0", icon: "icon.png", indexFile: "index.html", colorScheme: "system" }) {
 
     clearTemp(appPath);
 
-    if (!fs.existsSync(appPath + "/manifest.json")) throw "Could not find manifest.json.";
-    var manifestData = JSON.parse(fs.readFileSync(appPath + "/manifest.json", "utf-8"));
+    var manifestData = options;
     console.log("App Metadata Received:");
     for (var key in manifestData) {
         console.log("-", key, ":", manifestData[key]);
