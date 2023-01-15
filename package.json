@@ -36,5 +36,5 @@
         "adm-zip": "^0.5.3",
         "png2icons": "^2.0.1"
     },
-    "bin": "./index.js"
+    "bin": "./cli.js"
 }
