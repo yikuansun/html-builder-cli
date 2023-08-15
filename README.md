@@ -1,6 +1,6 @@
 # html-builder-cli
 The fastest way to package an HTML project into a fully native desktop app
-## Installation
+## Dependencies
 Requires [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
 [Wine](https://www.winehq.org/) is required for building Windows applications on non-Windows platforms.
