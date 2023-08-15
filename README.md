@@ -2,6 +2,9 @@
 The fastest way to package an HTML project into a fully native desktop app
 ## Installation
 Requires [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+
+[Wine](https://www.winehq.org/) is required for building Windows applications on non-Windows platforms.
+## Installation
 ### Install from npm
 In the command line, run `npm install html-builder-cli -g`
 ### Build from source
