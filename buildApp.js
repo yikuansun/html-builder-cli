@@ -44,36 +44,13 @@ function buildApp(appPath=process.cwd(), options={ version: "1.0.0", icon: proce
     
     zip.extractAllTo(appPath + "/.html-builder-cli-temp/html");
     
-    fs.writeFileSync(appPath + "/.html-builder-cli-temp/package.json", JSON.stringify({
-        name: "my-html-app" + Math.random().toString().substring(2, 6),
-        productName: manifestData.name,
-        description: manifestData.desc || "An app created with HTML Builder",
-        author: {
-            name: "HTML Builder (CLI)",
-            url: "https://github.com/yikuansun/html-builder-cli"
-        },
-        version: manifestData.version || "1.0.0",
-        main: "main.js",
-        scripts: {
-            start: "electron ."
-        },
-        devDependencies: {
-            electron: "^17.1.0",
-            "electron-builder": "^22.14.5"
-        },
-        build: {
-            appId: "com.electron.htmlapp" + Math.random().toString().substring(2, 6),
-            directories: {
-                buildResources: "buildresources"
-            },
-            mac: {
-                target: "zip"
-            },
-            nsis: {
-                differentialPackage: false
-            }
-        }
-    }));
+    var packageJSON = JSON.parse(fs.readFileSync(__dirname + "/template/package.json"));
+    packageJSON["name"] = "my-html-app" + Math.random().toString().substring(2, 6);
+    packageJSON["productName"] = manifestData.name;
+    if (manifestData.desc) packageJSON["description"] = manifestData.desc;
+    if (manifestData.version) packageJSON["version"] = manifestData.version;
+    packageJSON["build"]["appId"] = "com.electron." + packageJSON["name"];
+    fs.writeFileSync(appPath + "/.html-builder-cli-temp/package.json", JSON.stringify(packageJSON));
     
     fs.writeFileSync(appPath + "/.html-builder-cli-temp/main.js", `
         const { app, BrowserWindow, nativeTheme } = require("electron");

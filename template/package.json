@@ -1,0 +1,30 @@
+{
+    "name": "my-html-app",
+    "productName": "My HTML App",
+    "description": "An app created with HTML Builder",
+    "author": {
+        "name": "HTML Builder (CLI)",
+        "url": "https://github.com/yikuansun/html-builder-cli"
+    },
+    "version":  "1.0.0",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "devDependencies": {
+        "electron": "^17.1.0",
+        "electron-builder": "^22.14.5"
+    },
+    "build": {
+        "appId": "com.electron.htmlapp",
+        "directories": {
+            "buildResources": "buildresources"
+        },
+        "mac": {
+            "target": "zip"
+        },
+        "nsis": {
+            "differentialPackage": false
+        }
+    }
+}
