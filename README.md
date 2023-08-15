@@ -7,6 +7,8 @@ In the command line, run `npm install html-builder-cli -g`
 ### Build from source
 1. Clone this repository
 2. Run `npm install -g`
+### Install from aur
+[![git](https://img.shields.io/aur/version/html-builder-cli-git)](https://aur.archlinux.org/packages/html-builder-cli-git)
 ## Usage
 In your HTML project's directory, create a file called `manifest.json`. `manifest.json` should be a JSON file (not just a JS Object literal). It can have the following keys:
 - `name` (required): the name of the application.
