@@ -4,8 +4,10 @@
     "description": "An app created with HTML Builder",
     "author": {
         "name": "HTML Builder (CLI)",
-        "url": "https://github.com/yikuansun/html-builder-cli"
+        "url": "https://github.com/yikuansun/html-builder-cli",
+        "email": "myemail@example.com"
     },
+    "homepage": "https://github.com/yikuansun/html-builder-cli",
     "version":  "1.0.0",
     "main": "main.js",
     "scripts": {
@@ -25,6 +27,9 @@
         },
         "nsis": {
             "differentialPackage": false
+        },
+        "linux": {
+            "target": "deb"
         }
     }
 }
