@@ -52,32 +52,10 @@ function buildApp(appPath=process.cwd(), options={ version: "1.0.0", icon: proce
     packageJSON["build"]["appId"] = "com.electron." + packageJSON["name"];
     fs.writeFileSync(appPath + "/.html-builder-cli-temp/package.json", JSON.stringify(packageJSON));
     
-    fs.writeFileSync(appPath + "/.html-builder-cli-temp/main.js", `
-        const { app, BrowserWindow, nativeTheme } = require("electron");
-    
-        function createWindow () {
-    
-            const mainWindow = new BrowserWindow({
-                width: 1200,
-                height: 900,
-                webPreferences: {
-                    nodeIntegration: true,
-                }
-            });
-    
-            mainWindow.setMenuBarVisibility(false);
-            mainWindow.loadFile("html/${manifestData.indexFile || "index.html"}");
-            mainWindow.maximize();
-            nativeTheme.themeSource = "${manifestData.colorScheme || "system"}";
-    
-        }
-    
-        app.whenReady().then(() => {
-            createWindow();
-        });
-    
-        app.on("window-all-closed", function () { app.quit(); });
-    `);
+    let mainJS = fs.readFileSync(__dirname + "/template/main.js", "utf-8");
+    mainJS = mainJS.replaceAll("%INDEX_FILE%", manifestData.indexFile || "index.html");
+    mainJS = mainJS.replaceAll("%COLOR_SCHEME%", manifestData.colorScheme || "system");
+    fs.writeFileSync(appPath + "/.html-builder-cli-temp/main.js", mainJS);
     
     console.log("Created configuration files.\n");
     
