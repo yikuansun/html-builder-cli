@@ -23,7 +23,7 @@ In your HTML project's directory, create a file called `manifest.json`. `manifes
 - `colorScheme` (optional): `dark`, `light`, or `system`. Defaults to `system`.
 
 Here is an example `manifest.json` file:
-```
+```json
 {
     "name": "Cool App",
     "desc": "An awesome desktop app I made!",
