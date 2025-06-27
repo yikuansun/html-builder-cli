@@ -45,10 +45,18 @@ function buildApp(appPath=process.cwd(), options={ version: "1.0.0", icon: proce
     zip.extractAllTo(appPath + "/.html-builder-cli-temp/html");
     
     var packageJSON = JSON.parse(fs.readFileSync(__dirname + "/template/package.json"));
-    packageJSON["name"] = "my-html-app" + Math.random().toString().substring(2, 6);
+    if (manifestData.id) {
+        packageJSON["name"] = manifestData.id;
+        packageJSON["build"]["appId"] = "com.electron." + manifestData.id;
+    }
+    else {
+        packageJSON["name"] = "my-html-app" + Math.random().toString().substring(2, 6);
+        packageJSON["build"]["appId"] = "com.electron." + packageJSON["name"];
+    }
     packageJSON["productName"] = manifestData.name;
     if (manifestData.desc) packageJSON["description"] = manifestData.desc;
     if (manifestData.version) packageJSON["version"] = manifestData.version;
+    if (manifestData.author) packageJSON["author"] = manifestData.author;
     packageJSON["build"]["appId"] = "com.electron." + packageJSON["name"];
     fs.writeFileSync(appPath + "/.html-builder-cli-temp/package.json", JSON.stringify(packageJSON));
     
