@@ -7,6 +7,7 @@
         "url": "https://github.com/yikuansun/html-builder-cli",
         "email": "myemail@example.com"
     },
+    "private": true,
     "homepage": "https://github.com/yikuansun/html-builder-cli",
     "version": "1.0.0",
     "main": "main.js",
