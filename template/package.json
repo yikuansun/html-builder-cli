@@ -8,13 +8,13 @@
         "email": "myemail@example.com"
     },
     "homepage": "https://github.com/yikuansun/html-builder-cli",
-    "version":  "1.0.0",
+    "version": "1.0.0",
     "main": "main.js",
     "scripts": {
         "start": "electron ."
     },
     "devDependencies": {
-        "electron": "^22.3.27",
+        "electron": "^37.1.0",
         "electron-builder": "^22.14.13"
     },
     "build": {
