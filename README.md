@@ -21,11 +21,15 @@ In your HTML project's directory, create a file called `manifest.json`. `manifes
 - `icon` (optional): the relative location of the icon file (preferably a PNG of size >= 512x512px). Defaults to `icon.png`. AN ICON FILE MUST BE PROVIDED.
 - `indexFile` (optional): the relative location of the main HTML file to be displayed by the app. Defaults to `index.html`.
 - `colorScheme` (optional): `dark`, `light`, or `system`. Defaults to `system`.
+- `author` (optional): Info about the author. Can either by an object with keys `name`, `email`, and `url`, or a shorthand string with formal `"name <email> (url)"`.
+- `id` (optional): the application's ID. Must be a string consisting of only lowercase letters, numbers, and hyphens. This helps with app updates.
 
 Here is an example `manifest.json` file:
 ```json
 {
+    "id": "cool-app",
     "name": "Cool App",
+    "author": "Cool Man <coolman@example.com> (https://example.com)",
     "desc": "An awesome desktop app I made!",
     "platforms": [
         "linux",
